@@ -18,16 +18,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
+  const isLogged =  await has("access_token")
   return (
-    
+  
   
     <html lang="en">
       <body className={inter.className}>
       <Providers>
-        {await has("access_token") ?  ''  : <NavBar/> }
+        {isLogged ?  ''  : <NavBar/> }
         {children}
-        <Footer/>
+        {isLogged ?  ''  :  <Footer/>}
       </Providers>  
         </body>
     </html>
