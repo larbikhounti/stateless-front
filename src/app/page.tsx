@@ -11,15 +11,11 @@ import {
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react';
-import { has } from "./cookies/cookiesHandler";
-import { permanentRedirect,usePathname } from "next/navigation";
-
 export default  function Home() {
-  const pathname = usePathname()
 
-  if(async () => await has("access_token")  && pathname !== "auth/login" || "/"  ){
-    permanentRedirect('/dashboard')
-  }
+  // if(async () => await has("access_token")  && pathname !== "auth/login" || "/"  ){
+  //   permanentRedirect('/dashboard')
+  // }
   const Arrow = createIcon({
     displayName: 'Arrow',
     viewBox: '0 0 72 24',
