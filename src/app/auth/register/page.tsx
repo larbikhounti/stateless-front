@@ -109,7 +109,7 @@ export default function Register() {
             <form onSubmit={handleSubmit}>
               <HStack>
                 <Box>
-                  <FormControl isRequired id="lastName">
+                  <FormControl paddingY={4} isRequired id="lastName">
                     <FormLabel fontWeight={"bold"}>Username</FormLabel>
                     <Input
                       onChange={(e) => setUsername(e.target.value)}
@@ -119,7 +119,7 @@ export default function Register() {
                   </FormControl>
                 </Box>
               </HStack>
-              <FormControl id="email" isRequired>
+              <FormControl paddingY={4} id="email" isRequired>
                 <FormLabel fontWeight={"bold"}>Email address</FormLabel>
                 <Input
                   onChange={(e) => setEmail(e.target.value)}
@@ -127,7 +127,7 @@ export default function Register() {
                   type="email"
                 />
               </FormControl>
-              <FormControl id="password" isRequired>
+              <FormControl paddingY={4} id="password" isRequired>
                 <FormLabel fontWeight={"bold"}>Password</FormLabel>
                 <InputGroup>
                   <Input
