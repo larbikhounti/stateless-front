@@ -24,7 +24,7 @@ export async function has(key: string) {
 export async function destroy(key: string) {
 
   cookies().delete(key);
-  redirect('/auth/login')
+  redirect('/')
 
 
 }

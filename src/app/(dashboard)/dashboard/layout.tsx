@@ -35,7 +35,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
-import { destroy} from "../cookies/cookiesHandler";
+import { destroy} from "../../cookies/cookiesHandler";
 
 
 
