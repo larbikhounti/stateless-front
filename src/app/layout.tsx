@@ -5,7 +5,7 @@ import "./globals.css";
 import { Providers } from './providers'
 import NavBar from "./ui/Navbar/NavBar";
 import Footer from "./ui/Footer/Footer";
-import { has } from "./cookies/cookiesHandler";
+import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,12 +16,13 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
-  const isLogged =  await has("access_token")
+  const cookieStore = cookies();
+  const isLogged = cookieStore.get("access_token") ? true : false;
      return (
      <html lang="en">
         <body className={inter.className}>
         <Providers>
-          {isLogged? children : <><NavBar/> {children}<Footer/></> }
+        {isLogged ? children : <><NavBar />{children}<Footer /></>}
         </Providers>  
           </body>
       </html>

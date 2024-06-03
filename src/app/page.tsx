@@ -11,7 +11,6 @@ import {
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react';
-import NavBar from './ui/Navbar/NavBar';
 export default  function Home() {
 
   // if(async () => await has("access_token")  && pathname !== "auth/login" || "/"  ){
@@ -31,7 +30,6 @@ export default  function Home() {
   });
   return (
     <>
-    <NavBar/>
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
