@@ -1,7 +1,8 @@
 'use server'
  
 import { cookies } from 'next/headers'
- 
+const cookieStore = cookies()
+
 export  async function save(key : string, value : string) {
   cookies().set({
     name: "access_token",
@@ -12,7 +13,13 @@ export  async function save(key : string, value : string) {
 }
 
 export async function get(key : string) {
-    const cookieStore = cookies()
+
     return cookieStore.get(key)
 }
+
+export async function has(key : string) {
+
+    const hasCookie = cookieStore.has(key)
+    return hasCookie
+  }
 

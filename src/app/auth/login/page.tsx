@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { permanentRedirect} from "next/navigation";
 
 export default function Login() {
   const { push } = useRouter();
@@ -73,7 +74,7 @@ export default function Login() {
        
 
         console.log("no error " + data);
-        push("/auth/login");
+        push("/dashboard");
       } catch (error) {
         setIsSubmitting(false);
         console.error("Error:", error);
