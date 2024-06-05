@@ -1,26 +1,31 @@
 "use client"
 import {
     Button,
-    FormControl,
     Flex,
+    FormControl,
+    FormLabel,
     Heading,
     Input,
     Stack,
-    Text,
     useColorModeValue,
     useToast
   } from '@chakra-ui/react';
-import { useState } from 'react';
-  
-  
-  export default function ForgotPassword(): JSX.Element {
-    const [email, setEmail] = useState("");
+  import { useParams } from 'next/navigation';
+  import { useState } from 'react';
+  export default function ResetPassword(): JSX.Element {
+    const [password, setPassword] = useState("");
+    const params = useParams<{ token: string; email: string }>()
+    const { token, email } = params;
     const toast = useToast();
+    const decodedEmail = decodeURIComponent(email)
     const handleSubmit = async (e : React.FormEvent) =>{
       e.preventDefault();
-      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/password/email`; // Replace with your API endpoint
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/password/reset/${token}/${email}`; 
       const payload = {
-        email,
+        password,
+        token,
+        decodedEmail
+
       };
 
       try {
@@ -34,12 +39,12 @@ import { useState } from 'react';
         });
 
         const data = await res.json();
-        if (res.status == 200) {
+        if (res.status == 201) {
           console.log("no error " + data);
           toast({
             position: "top",
             title: "Reset Link",
-            description: "Reset link sent successfully ",
+            description: "Password changed successfully ",
             status: "success",
             duration: 9000,
             isClosable: true,
@@ -87,36 +92,24 @@ import { useState } from 'react';
           boxShadow={'lg'}
           p={6}
           my={12}>
-            
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-            Forgot your password?
+            Enter new password
           </Heading>
-          <Text
-            fontSize={{ base: 'sm', sm: 'md' }}
-            color={useColorModeValue('gray.800', 'gray.400')}>
-            You&apos;ll get an email with a reset link
-          </Text>
-          <FormControl id="email">
-            <Input
-             value={email}
-             onChange={(e)=>setEmail(e.target.value)}
-              placeholder="your-email@example.com"
-              _placeholder={{ color: 'gray.500' }}
-              type="email"
-            />
+          <FormControl  id="password" isRequired>
+            <FormLabel> New password</FormLabel>
+            <Input onChange={(e)=> setPassword(e.target.value) } type="password" />
           </FormControl>
           <Stack spacing={6}>
             <Button
+            type='submit'
               bg={'blue.400'}
               color={'white'}
-              type='submit'
               _hover={{
                 bg: 'blue.500',
               }}>
-              Request Reset
+              Submit
             </Button>
           </Stack>
-          
         </Stack>
         </form>
       </Flex>
