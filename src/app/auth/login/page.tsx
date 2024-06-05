@@ -33,7 +33,7 @@ export default function Login() {
     setIsSubmitting(true);
 
     const fetchData = async () => {
-      const url = "http://localhost:80/api/v1/login"; // Replace with your API endpoint
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`; // Replace with your API endpoint
       const payload = {
         email,
         password,

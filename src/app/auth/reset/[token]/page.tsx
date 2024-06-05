@@ -9,8 +9,14 @@ import {
     Stack,
     useColorModeValue,
   } from '@chakra-ui/react';
-  
+  import { useSearchParams } from 'next/navigation'
+
   export default function ResetPassword(): JSX.Element {
+    const searchParams = useSearchParams()
+ 
+    const token = searchParams.get('token')
+   console.log(token)
+
     return (
       <Flex
         minH={'100vh'}
