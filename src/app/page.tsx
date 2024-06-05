@@ -19,7 +19,6 @@ export default  function Home() {
   const accessToken = useAuthStore((state) => state.accessToken);
   if(accessToken){
     push("/dashboard")
-    return
   }
 
   const Arrow = createIcon({
