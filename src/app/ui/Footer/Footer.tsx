@@ -1,5 +1,5 @@
 "use client"
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -12,6 +12,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
+import useAuthStore from '@/app/store/Authstore';
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -53,8 +54,10 @@ const SocialButton = ({
 };
 
 export default function Footer() {
+  const accessToken = useAuthStore((state) => state.accessToken);
   return (
     <Box
+    hidden={accessToken? true : false}
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}>
       <Container as={Stack} maxW={'6xl'} py={10}>

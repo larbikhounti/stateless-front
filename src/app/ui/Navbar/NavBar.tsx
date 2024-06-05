@@ -22,12 +22,18 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
   } from '@chakra-ui/icons';
-  
+import useAuthStore from '@/app/store/Authstore';
+
   export default function NavBar() {
+    const accessToken = useAuthStore((state) => state.accessToken);
+    
+
     const { isOpen, onToggle } = useDisclosure();
-  
+      // console.log(window.location.pathname)
+      // setPath(window.location.pathname)
+
     return (
-      <Box>
+      <Box hidden={accessToken ? true : false}>
         <Flex
           bg={useColorModeValue('white', 'gray.800')}
           color={useColorModeValue('gray.600', 'white')}
@@ -56,15 +62,15 @@ import {
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
               color={useColorModeValue('gray.800', 'white')}>
-              Logo
+              stateless
             </Text>
   
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
             </Flex>
           </Flex>
-  
-          <Stack
+           {!accessToken ?
+            <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
@@ -90,7 +96,24 @@ import {
               }}>
               Sign Up
             </Button>
+          </Stack> : 
+          <Stack>
+                <Button
+              as={'a'}
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'red.400'}
+              href={'/dashboard'}
+              _hover={{
+                bg: 'pink.300',
+              }}>
+              Dashboard
+            </Button>
           </Stack>
+          }
+          
         </Flex>
   
         <Collapse in={isOpen} animateOpacity>
@@ -253,7 +276,7 @@ import {
   
   const NAV_ITEMS: Array<NavItem> = [
     {
-      label: 'Inspiration',
+      label: 'Intergrations',
     //   children: [
     //     {
     //       label: 'Explore Design Work',
@@ -283,11 +306,11 @@ import {
       ],
     },
     {
-      label: 'Learn Design',
+      label: 'Learn more',
       href: '#',
     },
     {
-      label: 'Hire Designers',
+      label: 'pricing',
       href: '#',
     },
   ];

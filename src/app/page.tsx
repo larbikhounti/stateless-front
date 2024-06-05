@@ -11,11 +11,17 @@ import {
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react';
-export default  function Home() {
+import useAuthStore from './store/Authstore';
+import { useRouter } from 'next/navigation';
 
-  // if(async () => await has("access_token")  && pathname !== "auth/login" || "/"  ){
-  //   permanentRedirect('/dashboard')
-  // }
+export default  function Home() {
+  const {push} = useRouter()
+  const accessToken = useAuthStore((state) => state.accessToken);
+  if(accessToken){
+    push("/dashboard")
+    return
+  }
+
   const Arrow = createIcon({
     displayName: 'Arrow',
     viewBox: '0 0 72 24',
@@ -47,15 +53,13 @@ export default  function Home() {
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
-            Make money from <br />
-            <Text as={'span'} color={'green.400'}>
-              your audience
+             Your Data  
+            <Text marginLeft={3} as={'span'} color={'green.400'}>
+            Simplified
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Monetize your content by charging your most loyal readers and reward
-            them loyalty points. Give back to your loyal readers by granting
-            them access to your pre-releases and sneak-peaks.
+          Effortlessly store and edit your data with Stateless. Seamlessly integrate with any Automation workflows, Simplify your data management and boost productivity with Stateless.
           </Text>
           <Stack
             direction={'column'}
@@ -65,11 +69,11 @@ export default  function Home() {
             position={'relative'}>
             <Button
               colorScheme={'green'}
-              bg={'green.400'}
+              bg={'red.400'}
               rounded={'full'}
               px={6}
               _hover={{
-                bg: 'green.500',
+                bg: 'red.500',
               }}>
               Get Started
             </Button>
@@ -92,7 +96,7 @@ export default  function Home() {
                 right={'-125px'}
                 top={'-15px'}
                 transform={'rotate(10deg)'}>
-                Starting at $15/mo
+                Starting at $0
               </Text>
             </Box>
           </Stack>

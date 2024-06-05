@@ -1,5 +1,6 @@
 "use client";
 import {get,save} from "@/app/cookies/cookiesHandler";
+import useAuthStore from "@/app/store/Authstore";
 import {
   Flex,
   Box,
@@ -17,9 +18,10 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { permanentRedirect} from "next/navigation";
 
 export default function Login() {
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+  const AccessToken = useAuthStore((state) => state.accessToken);
   const { push } = useRouter();
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +31,6 @@ export default function Login() {
   const handleSubmit = (e: any ) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log(e.target);
 
     const fetchData = async () => {
       const url = "http://localhost:80/api/v1/login"; // Replace with your API endpoint
@@ -60,7 +61,10 @@ export default function Login() {
           });
 
         }else{
-          await save("access_token",data.access_token)         
+         // await save("access_token",data.access_token) 
+          setAccessToken(data.access_token)  
+          setIsSubmitting(false);
+          push("/dashboard");
           toast({
             position: "top",
             title: "Message",
@@ -70,11 +74,11 @@ export default function Login() {
             isClosable: true,
           });
         }
-        setIsSubmitting(false);
+        
        
 
         console.log("no error " + data);
-        push("/dashboard");
+        
       } catch (error) {
         setIsSubmitting(false);
         console.error("Error:", error);

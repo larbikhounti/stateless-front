@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
   IconButton,
   Avatar,
@@ -25,9 +25,6 @@ import {
 } from "@chakra-ui/react";
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
   FiSettings,
   FiMenu,
   FiBell,
@@ -35,7 +32,11 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
-import { destroy} from "../cookies/cookiesHandler";
+import { CgProfile } from "react-icons/cg";
+import { GoProject } from "react-icons/go";
+import { BiMoney } from "react-icons/bi";
+import useAuthStore from "../store/Authstore";
+import { useRouter } from "next/navigation";
 
 
 
@@ -45,10 +46,10 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
+  { name: "Projects", icon: GoProject },
+  { name: "Profile", icon:  CgProfile },
   { name: "Settings", icon: FiSettings },
+  { name: "Billing", icon: BiMoney },
 ];
 
 export default function Sidebar({ children }: { children: ReactNode }) {
@@ -159,7 +160,40 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const [user,setUser] = useState()
+  const {push} =  useRouter()
+  const clearAccessToken = useAuthStore((state) => state.clearAccessToken);
+  const AccessToken = useAuthStore((state) => state.accessToken);
 
+  
+    const handleLogout = () => {
+      clearAccessToken();
+      push("/")
+      
+    };
+
+  useEffect(()=>{
+   console.log(process.env.NEXT_PUBLIC_API_URL)
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/user`; // Replace with your API endpoint
+
+      try {
+        const res =  fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            host: "localhost",
+            // Authorization : `Bearer ${}`
+          },
+        });
+
+        const data =  res.then(res=> res.json());
+
+      }catch (error) {
+
+       
+     
+      }
+  },[user])
 
   return (
     <Flex
@@ -235,7 +269,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem onClick={async () => await  destroy("access_token")  }>
+              <MenuItem onClick={handleLogout}>
                 Sign out
               </MenuItem>
             </MenuList>

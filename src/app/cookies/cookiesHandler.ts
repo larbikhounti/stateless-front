@@ -7,7 +7,7 @@ export async function save(key: string, value: string) {
   cookies().set({
     name: "access_token",
     value: value,
-    httpOnly: true,
+    httpOnly: false,
     path: "/",
   });
 }
