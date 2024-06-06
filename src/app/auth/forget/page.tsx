@@ -14,10 +14,12 @@ import { useState } from 'react';
   
   
   export default function ForgotPassword(): JSX.Element {
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [email, setEmail] = useState("");
     const toast = useToast();
     const handleSubmit = async (e : React.FormEvent) =>{
       e.preventDefault();
+      setIsSubmitting(true)
       const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/password/email`; // Replace with your API endpoint
       const payload = {
         email,
@@ -34,7 +36,9 @@ import { useState } from 'react';
         });
 
         const data = await res.json();
+        setIsSubmitting(false)
         if (res.status == 200) {
+          
           console.log("no error " + data);
           toast({
             position: "top",
@@ -107,6 +111,7 @@ import { useState } from 'react';
           </FormControl>
           <Stack spacing={6}>
             <Button
+            isLoading={isSubmitting}
               bg={'blue.400'}
               color={'white'}
               type='submit'

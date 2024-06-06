@@ -50,6 +50,7 @@ export default function Login() {
         });
 
         const data = await res.json();
+        setIsSubmitting(false);
         if(!data.access_token){
           toast({
             position: "top",
@@ -63,7 +64,6 @@ export default function Login() {
         }else{
          // await save("access_token",data.access_token) 
           setAccessToken(data.access_token)  
-          setIsSubmitting(false);
           push("/dashboard");
           toast({
             position: "top",
@@ -137,15 +137,14 @@ export default function Login() {
                 align={"start"}
                 justify={"space-between"}
               >
-                <Checkbox>Remember me</Checkbox>
-                <Link href="/auth/forget" color={"blue.400"}>
+                {/* <Checkbox>Remember me</Checkbox> */}
+                <Link href="/auth/forget" marginTop={5} color={"blue.400"}>
                   Forgot password?
                 </Link>
               </Stack>
               <Button
                 type="submit"
                 isLoading={isSubmitting}
-                loadingText="Logging in Your Account... "
                 bg={"blue.400"}
                 color={"white"}
                 _hover={{

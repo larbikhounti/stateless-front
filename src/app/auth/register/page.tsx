@@ -31,12 +31,10 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(`user${randomInt(1, 1000)}@gmail.com`);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setIsSubmitting(true);
+   setIsSubmitting(true);
     console.log(e.target);
-
-    const fetchData = async () => {
       const url = "http://localhost:80/api/v1/register"; // Replace with your API endpoint
       const payload = {
         email,
@@ -79,8 +77,7 @@ export default function Register() {
           isClosable: true,
         });
       }
-    };
-    fetchData();
+
   };
 
   return (
@@ -151,7 +148,6 @@ export default function Register() {
               <Stack spacing={10} pt={2}>
                 <Button
                   isLoading={isSubmitting}
-                  loadingText="Creating Your Account... "
                   type="submit"
                   size="lg"
                   bg={"blue.400"}

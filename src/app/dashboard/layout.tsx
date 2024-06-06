@@ -163,7 +163,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [user,setUser] = useState()
   const {push} =  useRouter()
   const clearAccessToken = useAuthStore((state) => state.clearAccessToken);
-  const AccessToken = useAuthStore((state) => state.accessToken);
+ // const AccessToken = useAuthStore((state) => state.accessToken);
 
   
     const handleLogout = () => {
@@ -172,28 +172,28 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       
     };
 
-  useEffect(()=>{
-   console.log(process.env.NEXT_PUBLIC_API_URL)
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/user`; // Replace with your API endpoint
+  // useEffect(()=>{
+  //  console.log(process.env.NEXT_PUBLIC_API_URL)
+  // const url = `${process.env.NEXT_PUBLIC_API_URL}/user`; // Replace with your API endpoint
 
-      try {
-        const res =  fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            host: "localhost",
-            // Authorization : `Bearer ${}`
-          },
-        });
+  //     try {
+  //       const res =  fetch(url, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           host: "localhost",
+  //           // Authorization : `Bearer ${}`
+  //         },
+  //       });
 
-        const data =  res.then(res=> res.json());
+  //       const data =  res.then(res=> res.json());
 
-      }catch (error) {
+  //     }catch (error) {
 
        
      
-      }
-  },[user])
+  //     }
+  // },[user])
 
   return (
     <Flex
